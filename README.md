@@ -1,0 +1,209 @@
+# mi menu
+
+A standalone Roblox UI framework — ripped from da hood juju cheat and stripped of all cheat-specific code. Works on any executor with `Drawing` API support.
+
+## Quick Start
+
+```lua
+local menu = loadstring(game:HttpGet("raw github url"))()
+
+-- create a group (sidebar entry)
+local main = menu.create_group("main")
+
+-- create a tab inside the group
+local test_tab = main:create_tab("test")
+
+-- create a section inside the tab
+local section = test_tab:create_section("section name", "left", 1, 0)
+```
+
+## API Reference
+
+Menu is exported as `getgenv()["juju_menu"]` and `getgenv()["juju"]`.
+
+### Groups
+
+```lua
+menu.create_group("name")  -- returns group object
+```
+
+Each group has:
+
+```lua
+group:create_tab("name")   -- returns tab object
+```
+
+### Tabs
+
+```lua
+tab:create_section("name", "side", size, offset)
+```
+
+- `side`: `"left"` or `"right"` — column side
+- `size`: section width multiplier (1 = full column)
+- `offset`: vertical offset multiplier
+
+### Elements
+
+Sections have one method: `create_element(info, elements)`.
+
+`info` table:
+```lua
+{
+    name = "display name",     -- shown label
+    description = "tooltip",   -- optional
+    flag = "my_flag",          -- binds to flags["my_flag"]
+}
+```
+
+`elements` table maps element types to their configs:
+
+#### Toggle
+```lua
+section:create_element({name="toggle"}, {
+    toggle = {
+        flag = "my_toggle",
+        default = false,
+    }
+})
+```
+
+#### Slider
+```lua
+section:create_element({name="speed"}, {
+    slider = {
+        flag = "my_slider",
+        min = 0,
+        max = 100,
+        default = 50,
+        decimals = 1,
+        suffix = "%",
+    }
+})
+```
+
+#### Dropdown
+```lua
+section:create_element({name="mode"}, {
+    dropdown = {
+        flag = "my_dropdown",
+        list = {"option1", "option2"},
+        default = "option1",
+    }
+})
+```
+
+#### Color Picker
+```lua
+section:create_element({name="color"}, {
+    color = {
+        flag = "my_color",
+        default = Color3.fromRGB(255, 0, 0),
+        transparency_flag = "my_transparency",
+    }
+})
+```
+
+#### Textbox
+```lua
+section:create_element({name="label"}, {
+    textbox = {
+        flag = "my_text",
+        default = "hello",
+        numbers = false,       -- digits only
+        allow_enter = true,
+    }
+})
+```
+
+#### Keybind
+```lua
+section:create_element({name="bind"}, {
+    keybind = {
+        flag = "my_bind",
+        default = Enum.KeyCode.LeftAlt,
+        is_toggle = false,     -- hold vs toggle
+    }
+})
+```
+
+#### Button
+```lua
+local btn = section:create_element({name="click me"}, {
+    button = {
+        confirmation = true,   -- requires confirm
+    }
+})
+btn.on_clicked:Connect(function() print("clicked") end)
+```
+
+### Keybinds List
+
+Show/hide the hotkey display widget:
+
+```lua
+menu:show_keybinds()
+menu:hide_keybinds()
+menu["keybinds_visible"]  -- bool
+```
+
+### Notifications
+
+```lua
+menu["new_notification"]("text", type, duration, image_data)
+```
+- `type`: 1=success, 2=alert, 3=error
+- `duration`: seconds (clamped 0.5–7)
+- `image_data`: optional base64 image bytes for the icon
+
+### Themes
+
+```lua
+menu:load_theme("theme_name")
+```
+
+Theme files are `.th` JSON files placed in `themes/` folder. Format matches the `menu.colors` table.
+
+### Flags
+
+```lua
+flags["my_flag"] = value
+local v = flags["my_flag"]
+```
+
+Flags are saved/loaded with configs. The `!` prefix means it's a global flag (not config-specific).
+
+### Signals
+
+```lua
+local sig = menu["on_config_loaded"]
+sig:Connect(function() print("config loaded") end)
+```
+
+### `getgenv()["juju"]` extras
+
+```lua
+juju.find_element(parent_name, element_name)  -- find by name
+juju.create_section(name, side, size, offset) -- creates under "configs" tab
+juju.create_element(section_name, info, elements)
+juju.set_flag(flag, value)
+juju.get_flag(flag)
+juju.get_flags()
+juju.load_config(name)
+```
+
+## Data Persistence
+
+- Config files: `configs/*.cfg` (JSON, XOR-encrypted)
+- Theme files: `themes/*.th` (JSON)
+- Settings: `data.dat` (notifications, favorites, theme, hide_on_load, welcome_back)
+
+The `hide on load` option in Settings starts the menu hidden (press Alt to open).
+
+The `welcome back` toggle shows a notification with your Roblox avatar on load.
+
+## Dependencies
+
+- Executor must support `Drawing` (custom API fallback loaded from GitHub automatically)
+- `HttpService` for saving/loading data
+- `TweenService` is NOT used — custom tween library runs on Heartbeat
