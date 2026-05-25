@@ -1,4 +1,4 @@
-﻿-- juju menu framework
+-- juju menu framework
 -- standalone UI library for Roblox
 -- supports: groups, tabs, sections, toggles, sliders, dropdowns, colorpickers, textboxes, keybinds, buttons, notifications, themes, configs
 -- usage: local menu = loadstring(game:HttpGet("raw url"))()
