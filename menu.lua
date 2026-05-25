@@ -2416,13 +2416,14 @@ do
                         ["hide_on_load"] = menu["hide_on_load"],
                         ["autoload"] = menu["autoload"],
                     }))
+                end
 
                 close_context()
             end
         },
         [6] = {
             "unfavorite",
-            base64_decode("iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAGUExURf///wAAAFXC034AAAACdFJOU/8A5bcwSgAAAAlwSFlzAAALGAAACxgBiam1EAAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4y+7wDtgAAALZlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgAQAAAAWgAAAGmHBAABAAAAagAAAAAAAADIGQEA6AMAAMgZAQDoAwAAUGFpbnQuTkVUIDUuMS4yAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACUAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAACaOS8o1uPhvAAAAH0lEQVQYV2NghAIQgwFMwBlwAGWCpMA0MgOkkpGBEQAF1gAlfZ5svQAAAABJRU5ErkJggg=="),
+            base64_decode("iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAGUExURf///wAAAFXC034AAAACdFJOU/8A5bcwSgAAAAlwSFlzAAALGAAACxgBiam1EAAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4y+7wDtgAAALZlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACoBAwABAAAAAgAAADEBAgAQAAAAWgAAAGmHBAABAAAAagAAAAAAAADIGQEA6AMAAMgZAQDoAwAAUGFpbnQuTkVUIDUuMS4yAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACUAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAACaOS8o1uPhvAAAAH0lEQVQYV2NghAIQgwFMwBlwAGWCpMA0MgOkkpGBEQAF1gAlfZ5svQAAAABJRU5ErkJggg=="),
             function()
                 local active = actives["context"]
 
@@ -2441,6 +2442,7 @@ do
                         ["hide_on_load"] = menu["hide_on_load"],
                         ["autoload"] = menu["autoload"],
                     }))
+                end
 
                 close_context()
             end
